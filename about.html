@@ -5,69 +5,372 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About – Simon Mellergaard</title>
   <style>
+    :root {
+      --primary: #0366d6;
+      --primary-dark: #0256b9;
+      --accent: #6f42c1;
+      --dark-bg: #0d1117;
+      --dark-secondary: #161b22;
+      --light-bg: #f5f5f5;
+      --text-light: #333;
+      --text-muted: #555;
+      --border-color: #e1e4e8;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #f5f5f5;
-      color: #333;
+      background: var(--light-bg);
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background 0.3s, color 0.3s;
     }
+
+    body.dark-mode {
+      background: var(--dark-bg);
+      color: #e6edf3;
+    }
+
+    body.dark-mode header { background: #010409; }
+    body.dark-mode main { background: var(--dark-bg); }
+    body.dark-mode .timeline-item::before { background: #30363d; }
+    body.dark-mode .timeline-item { border-color: #30363d; }
+    body.dark-mode footer { color: #8b949e; border-color: #30363d; }
+
     header {
       background: #24292e;
       color: #fff;
       padding: 1rem 2rem;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      transition: background 0.3s;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 2rem; }
+    header h1 { font-size: 1.25rem; font-weight: 600; }
+
+    nav {
+      display: flex;
+      align-items: center;
       gap: 2rem;
     }
-    header h1 { font-size: 1.25rem; }
+
     nav a {
       color: #ccc;
       text-decoration: none;
-      margin-right: 1.25rem;
       font-size: 0.95rem;
+      transition: color 0.3s;
+      position: relative;
     }
-    nav a:hover, nav a.active { color: #fff; }
+
+    nav a:hover, nav a.active {
+      color: #fff;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 1px;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: #ccc;
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: color 0.3s;
+    }
+
+    .theme-toggle:hover { color: #fff; }
+
     main {
       flex: 1;
-      max-width: 680px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 4rem 2rem;
+      padding: 3rem 2rem;
+      width: 100%;
     }
-    h2 { font-size: 2rem; margin-bottom: 1.5rem; }
-    p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 1rem; }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    body.dark-mode p { color: #8b949e; }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+
+    body.dark-mode h3 { color: #e6edf3; }
+
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      margin-left: 2rem;
+      padding: 1.5rem;
+      background: white;
+      border-left: 3px solid var(--primary);
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    body.dark-mode .timeline-item { background: var(--dark-secondary); }
+
+    .timeline-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .timeline-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -11px;
+      top: 1.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border: 3px solid var(--light-bg);
+      border-radius: 50%;
+    }
+
+    body.dark-mode .timeline-item::before { border-color: var(--dark-bg); }
+
+    .timeline-item h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+      color: var(--primary);
+    }
+
+    .timeline-item .date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    body.dark-mode .timeline-item .date { color: #8b949e; }
+
+    .timeline-item p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .quote-section {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      margin: 2rem 0;
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    body.dark-mode .quote-section {
+      background: var(--dark-secondary);
+      color: #e6edf3;
+    }
+
     .back {
       display: inline-block;
       margin-top: 2rem;
-      color: #0366d6;
+      color: var(--primary);
       text-decoration: none;
       font-size: 0.95rem;
+      transition: color 0.3s;
     }
-    .back:hover { text-decoration: underline; }
+
+    .back:hover { color: var(--accent); }
+
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 2rem;
       font-size: 0.85rem;
       color: #888;
+      border-top: 1px solid var(--border-color);
+      margin-top: auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .footer-links a { color: #58a6ff; }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      header { flex-direction: column; gap: 1rem; }
+      .header-left { flex-direction: column; gap: 1rem; width: 100%; }
+      nav { width: 100%; justify-content: center; gap: 1rem; }
+      h2 { font-size: 2rem; }
+      main { padding: 2rem 1rem; }
+      .timeline::before { left: -15px; }
+      .timeline-item { margin-left: 1rem; padding: 1rem; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Simon Mellergaard</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html" class="active">About</a>
-    </nav>
+    <div class="header-left">
+      <h1>Simon Mellergaard</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+      </nav>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
   </header>
+
   <main>
     <h2>About Me</h2>
-    <p>Hi, I'm Simon Mellergaard. Welcome to my GitHub Pages site.</p>
-    <p>Feel free to explore the site and check out my projects on GitHub.</p>
+
+    <p>Hi, I'm Simon Mellergaard – a passionate developer and creator with a keen interest in building beautiful, functional digital experiences. Welcome to my corner of the web!</p>
+
+    <p>With over 5 years of experience in web development, I've worked on everything from small personal projects to large-scale applications. I'm driven by curiosity and a desire to continuously learn and improve my craft.</p>
+
+    <div class="quote-section">
+      "Great code is like great writing – it should be clear, concise, and leave the reader with something to think about."
+    </div>
+
+    <h3>Professional Journey</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>Senior Developer</h4>
+        <div class="date">2023 – Present</div>
+        <p>Leading frontend development initiatives and mentoring junior developers. Focusing on architecture, performance optimization, and user experience.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Full Stack Developer</h4>
+        <div class="date">2021 – 2023</div>
+        <p>Built and maintained several production web applications using React, Node.js, and cloud platforms. Implemented CI/CD pipelines and improved deployment processes.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Junior Developer</h4>
+        <div class="date">2019 – 2021</div>
+        <p>Started my career building web applications, learning best practices, and contributing to open-source projects. Developed strong foundations in web technologies.</p>
+      </div>
+    </div>
+
+    <h3>What I Love</h3>
+    <p>I'm passionate about creating elegant solutions to complex problems. Whether it's designing intuitive user interfaces, optimizing performance, or architecting scalable systems, I find joy in the process of building something meaningful. I believe in the power of continuous learning and staying updated with the latest technologies and industry trends.</p>
+
+    <p>Outside of work, you'll find me exploring new technologies, contributing to open-source projects, writing about web development, or just enjoying a good cup of coffee while thinking about the next big idea.</p>
+
+    <h3>Interests & Hobbies</h3>
+    <p>
+      🎮 Gaming • 📚 Reading about tech and science • 🚀 Learning new frameworks and tools • 🎨 Design • 🏃 Running • 🌍 Traveling • ☕ Coffee enthusiast
+    </p>
+
     <a href="index.html" class="back">← Back to Home</a>
   </main>
-  <footer>© 2026 Simon Mellergaard</footer>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com">GitHub</a>
+      <a href="https://twitter.com">Twitter</a>
+      <a href="https://linkedin.com">LinkedIn</a>
+      <a href="mailto:hi@example.com">Email</a>
+    </div>
+    <p>© 2026 Simon Mellergaard. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.body.classList.add(savedTheme);
+      updateThemeToggle();
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', '');
+      } else {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      }
+      updateThemeToggle();
+    });
+
+    function updateThemeToggle() {
+      themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    }
+
+    // Add active nav link based on current page
+    document.querySelectorAll('nav a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+  </script>
 </body>
 </html>
