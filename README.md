@@ -1,3 +1,5 @@
 # simon-mellergaard.github.io
 
-This is such a great website, yay.
+----
+
+This repository contains the website of simon-mellergaard. The website is mostly for fun, but also for experimental purposes and trying out new stuff. 
